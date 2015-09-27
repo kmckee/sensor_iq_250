@@ -10,13 +10,13 @@ angular.module('starter.controllers', [])
     ];
 })
 
-.controller('LiveCtrl', function($scope, $interval) {
+.controller('LiveCtrl', function($scope, $interval, $http) {
     var maximum = 30;
     $scope.data = [[]];
     $scope.labels = [];
     $scope.options = {
         animation: false,
-        showScale: false,
+        showScale: true,
         showTooltips: false,
         pointDot: false,
         datasetStrokeWidth: 0.5
@@ -25,27 +25,20 @@ angular.module('starter.controllers', [])
     // Update the dataset at 25FPS for a smoothly-animating chart
     $interval(function () {
         getLiveChartData();
-    }, 1000);
+    }, 500);
 
     function getLiveChartData () {
-        if ($scope.data[0].length) {
-            $scope.labels = $scope.labels.slice(1);
-            $scope.data[0] = $scope.data[0].slice(1);
-        }
-
-        while ($scope.data[0].length < maximum) {
+        $http.get('https://api.particle.io/v1/devices/39001b001747343337363432/lightSensor?access_token=bb03e9ee7273f448e94282b06ebd72ff533ca1c2').then(function success(response) {
+            var x = Number(response.data.result);
             $scope.labels.push('');
-            $scope.data[0].push(getRandomValue($scope.data[0]));
-        }
+            var scaled = x / 27;
+            $scope.data[0].push(scaled);
+        },
+        function error(err) {
+            console.log('error', err);
+        });
+
     }
-
-    function getRandomValue (data) {
-        var l = data.length, previous = l ? data[l - 1] : 50;
-        var y = previous + Math.random() * 10 - 5;
-        return y < 0 ? 0 : y > 100 ? 100 : y;
-    }
-
-
 })
 
 .controller('AccountCtrl', function($scope) {
