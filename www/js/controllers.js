@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $timeout) {
+.controller('HistoryCtrl', function($scope, $timeout) {
     // Live data
     $scope.labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Today"];
     $scope.series = ['Systolic', 'Diastolic'];
@@ -10,7 +10,7 @@ angular.module('starter.controllers', [])
     ];
 })
 
-.controller('ChatsCtrl', function($scope, $interval) {
+.controller('LiveCtrl', function($scope, $interval) {
     var maximum = 30;
     $scope.data = [[]];
     $scope.labels = [];
