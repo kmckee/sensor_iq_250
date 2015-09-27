@@ -1,12 +1,11 @@
 <ion-view view-title="Sensor IQ 250">
   <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-divider bar-positive">Recent Readings</div>
-      <div class="item item-body">
-        <div>
-            Put some data here.
-        </div>
-      </div>
-    </div>
+        <canvas id="line" 
+                class="chart chart-line" 
+                chart-data="data" 
+                chart-labels="labels" 
+                chart-legend="true" 
+                chart-series="series" 
+                chart-click="onClick"></canvas> 
   </ion-content>
 </ion-view>
